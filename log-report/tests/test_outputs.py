@@ -20,20 +20,20 @@ def _report():
 
 
 def test_report_is_valid_json_object():
-    """The agent produced a parseable JSON object at /app/report.json."""
+    """Success criterion 1: /app/report.json exists and contains a valid JSON object."""
     _report()
 
 
 def test_total_requests():
-    """total_requests matches the number of non-empty log lines."""
+    """Success criterion 2: total_requests equals the number of non-empty lines in /app/access.log."""
     assert _report()["total_requests"] == EXPECTED_TOTAL_REQUESTS
 
 
 def test_unique_ips():
-    """unique_ips matches the number of distinct client IPs."""
+    """Success criterion 3: unique_ips equals the number of distinct client IPs in /app/access.log."""
     assert _report()["unique_ips"] == EXPECTED_UNIQUE_IPS
 
 
 def test_top_path():
-    """top_path is the most frequently requested path."""
+    """Success criterion 4: top_path equals the most frequently requested path in /app/access.log."""
     assert _report()["top_path"] == EXPECTED_TOP_PATH

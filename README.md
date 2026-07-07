@@ -22,15 +22,12 @@ Tested with harbor 0.17.1.
   `artifacts = ["/app/report.json"]`.
 - The declared artifact pointed at `/app/out.json`, but the task (solution and
   verifier) produces `/app/report.json`. Declaration now matches reality.
-- Fabricated provenance removed: `model_tested = "GPT-5.4"` (a model that does
-  not exist) and `agent_tested = "Terminus-2"` claimed testing that could never
-  have happened — as shipped, the task could not even load, let alone pass
-  oracle.
 - `verification_explanation = "Check the report file."` described the dishonest
   existence-only verifier; rewritten to describe the real exact-value checks.
-- `allow_internet = true` removed — the task is a local log-parsing exercise and
-  needs no network; removing it keeps the task hermetic and reproducible.
-- Added `authors` under `[task]`.
+- All tb2-template metadata fields retained (`category`, `subcategory`,
+  `task_objective`, `artifact_type`, `expert_time_estimate_hours`,
+  `model_tested`, `agent_tested`, and the three explanation fields), plus the
+  full `[environment]` block including `allow_internet` and `mcp_servers`.
 
 ### environment/Dockerfile
 - `FROM python:latest` was unpinned — not reproducible. Now pinned by digest:
@@ -59,6 +56,8 @@ Tested with harbor 0.17.1.
 - Ground truth is hardcoded in `tests/` (never agent-visible) instead of being
   recomputed from `/app/access.log`, which the agent could rewrite to make a
   bogus report self-consistent.
+- Tests map 1:1 onto the numbered success criteria in `instruction.md`; each
+  test's docstring names the criterion it verifies.
 
 ### instruction.md
 - Was vague ("summarize what you find… save your findings") — it never named the
