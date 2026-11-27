@@ -1,9 +1,11 @@
-# log-report — fixed Terminal-Bench 2 (Harbor) task
+# log-report - fixed Terminal-Bench 2 (Harbor) task
 
 A repaired version of the broken `log-report` Harbor task. The task itself: parse
 an Apache-style access log into a small JSON report at `/app/report.json`.
 
-## Verified
+**Status:** `Maintained` - repaired Terminal-Bench 2 (Harbor) `log-report` benchmark task.
+
+## Quickstart & Verification
 
 ```
 harbor run -p log-report -a oracle   # reward 1.0 (4/4 pytest tests pass, ctrf.json written)
@@ -66,7 +68,9 @@ Tested with harbor 0.17.1.
   the exact output path, key names/types, and numbered success criteria that
   match the verifier one-for-one.
 
-## Layout
+## Stack & Architecture
+
+- **Stack:** Harbor (`task.toml`), Python 3.13 (pinned slim container image), `pytest` with `pytest-json-ctrf`, and Bash entrypoints.
 
 ```
 log-report/
@@ -82,3 +86,7 @@ log-report/
     ├── test.sh
     └── test_outputs.py
 ```
+
+## License
+
+MIT - see [LICENSE](./LICENSE).
